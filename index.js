@@ -55,6 +55,12 @@ async function run() {
       res.send(result);
     })
 
+       //get route for wishlist
+       app.get('/wishlist', async (req, res) => {
+        const cursor = wishlistCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+      })
 
 
     // ---------------------------------------------------------------------------------
