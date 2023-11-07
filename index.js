@@ -42,8 +42,16 @@ async function run() {
 
     //get route for all blog
     app.get('/allblogs', async (req, res) => {
-      const cursor = brandCollection.find();
+      const cursor = blogCollection.find();
       const result = await cursor.toArray();
+      res.send(result);
+    })
+
+    //post route for blog add to wishlist
+    app.post('/wishlist', async (req, res) => {
+      const wishlistBlog = req.body;
+      console.log(wishlistBlog);
+      const result = await wishlistCollection.insertOne(wishlistBlog);
       res.send(result);
     })
 
