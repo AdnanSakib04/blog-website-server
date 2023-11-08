@@ -110,26 +110,24 @@ async function run() {
 
 
     //get route for featured blogs
-    const WORD_COUNT_LIMIT = 10;
+    const blog_limit = 10; // because i have to show 10 blogs
     app.get('/featuredBlogs', async (req, res) => {
-      try {
-        const cursor = blogCollection.find();
-        const blogs = await cursor.toArray();
 
-        // Calculate word count for each blog and sort by word count in descending order
-        const sortedBlogs = blogs
-          .map((blog) => ({
-            ...blog,
-            wordCount: blog.longDescription.split(' ').length, // Simple word count calculation
-          }))
-          .sort((a, b) => b.wordCount - a.wordCount)
-          .slice(0, WORD_COUNT_LIMIT);
+      const cursor = blogCollection.find();
+      const blogs = await cursor.toArray();
 
-        res.send(sortedBlogs);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-      }
+      // calculating word count of longDescription for each blog
+      // sorting by word count in descending order
+      const sortedBlogs = blogs
+        .map((blog) => ({
+          ...blog,
+          wordCount: blog.longDescription.split(' ').length, 
+        }))
+        .sort((a, b) => b.wordCount - a.wordCount)
+        .slice(0, blog_limit);
+
+      res.send(sortedBlogs);
+
     });
 
 
