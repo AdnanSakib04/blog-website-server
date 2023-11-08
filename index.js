@@ -140,9 +140,12 @@ async function run() {
     })
 
 
-    //get route for all comments
-    app.get('/comments', async (req, res) => {
-      const cursor = commentCollection.find();
+
+    //get route for comments of a specific blog
+    app.get('/comments/:blogId', async (req, res) => {
+      const blogId = req.params.blogId;
+      const query = { blogId: blogId }
+      const cursor = commentCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
     })
