@@ -121,7 +121,7 @@ async function run() {
       const sortedBlogs = blogs
         .map((blog) => ({
           ...blog,
-          wordCount: blog.longDescription.split(' ').length, 
+          wordCount: blog.longDescription.split(' ').length,
         }))
         .sort((a, b) => b.wordCount - a.wordCount)
         .slice(0, blog_limit);
@@ -131,16 +131,24 @@ async function run() {
     });
 
 
-        //post route for add comment
-        app.post('/addComment', async (req, res) => {
-          const newComment = req.body;
-          console.log(newComment);
-          const result = await commentCollection.insertOne(newComment);
-          res.send(result);
-        })
+    //post route for add comment
+    app.post('/addComment', async (req, res) => {
+      const newComment = req.body;
+      console.log(newComment);
+      const result = await commentCollection.insertOne(newComment);
+      res.send(result);
+    })
 
 
-    
+    //get route for all comments
+    app.get('/comments', async (req, res) => {
+      const cursor = commentCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
+
+
 
 
     // Send a ping to confirm a successful connection
