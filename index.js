@@ -70,6 +70,13 @@ async function run() {
       res.send(result);
     })
 
+    //get route for recent blogs
+    app.get('/recentBlogs', async (req, res) => {
+      const cursor = blogCollection.find().sort({ currentTime: -1 });
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
 
     // ---------------------------------------------------------------------------------
     //get route for brands
