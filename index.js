@@ -6,6 +6,25 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // middleware
+// app.use(cors({
+//   origin: [
+//       'http://localhost:5173',
+//       'https://blog-website-36dc4.web.app',
+//       'https://blog-website-36dc4.firebaseapp.com'
+//   ],
+//   credentials: true
+// }));
+
+
+// 
+
+// const corsOptions ={
+//   origin:'*',
+//   credentials:true,
+//   optionSuccessStatus:200,
+//   }
+//   app.use(cors(corsOptions));
+
 app.use(cors());
 app.use(express.json());
 
