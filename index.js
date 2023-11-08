@@ -78,27 +78,34 @@ async function run() {
     })
 
 
-        //put route for update blog
-        app.put('/allblogs/:id', async (req, res) => {
-          const id = req.params.id;
-          const filter = { _id: new ObjectId(id) }
-          const options = { upsert: true };
-          const updatedProduct = req.body;
-    
-          const blog = {
-            $set: {
-              title: updatedProduct.title,
-              category: updatedProduct.category,
-              photo: updatedProduct.photo,
-              shortDescription: updatedProduct.shortDescription,
-              longDescription: updatedProduct.longDescription,
-            }
-          }
-    
-          const result = await blogCollection.updateOne(filter, blog, options);
-          res.send(result);
-        })
+    //put route for update blog
+    app.put('/updateBlog/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const options = { upsert: true };
+      const updatedProduct = req.body;
 
+      const blog = {
+        $set: {
+          title: updatedProduct.title,
+          category: updatedProduct.category,
+          photo: updatedProduct.photo,
+          shortDescription: updatedProduct.shortDescription,
+          longDescription: updatedProduct.longDescription,
+        }
+      }
+
+      const result = await blogCollection.updateOne(filter, blog, options);
+      res.send(result);
+    })
+
+    //get route for update blog
+    app.get('/allblogs/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await blogCollection.findOne(query);
+      res.send(result);
+    })
 
     // ---------------------------------------------------------------------------------
     //get route for brands
